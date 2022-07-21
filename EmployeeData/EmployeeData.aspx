@@ -112,29 +112,15 @@
             <asp:Button ID="BtnCreate" runat="server" Text="Create" OnClick="BtnCreate_Click" />
 
             <%--Adding data from the data base to the grid view by SQLDataSource--%>
-            <asp:GridView ID="GridEmployee" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridEmployee_SelectedIndexChanged" CellPadding="4" ForeColor="#333333" GridLines="None">
-                <AlternatingRowStyle BackColor="White" />
+            <br />
+            <asp:GridView ID="GridEmployee" runat="server" OnSelectedIndexChanged="GridEmployee_SelectedIndexChanged">
+                
                 <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" SortExpression="ID" />
-                    <asp:BoundField DataField="PCIDSSUSERNAME" HeaderText="PCIDSS USERNAME" SortExpression="PCIDSSUSERNAME" />
-                    <asp:BoundField DataField="ECLERXUSERNAME" HeaderText="ECLERX USERNAME" SortExpression="ECLERXUSERNAME" />
-                    <asp:BoundField DataField="EMAIL" HeaderText="EMAIL" SortExpression="EMAIL" />
-                    <asp:BoundField DataField="PUBLICROLES" HeaderText="PUBLIC ROLES" SortExpression="PUBLICROLES" />
-                    <asp:BoundField DataField="ADMINROLES" HeaderText="ADMIN ROLES" SortExpression="ADMINROLES" />
-                    <asp:BoundField DataField="STATUS" HeaderText="STATUS" SortExpression="STATUS" />
                     <asp:CommandField SelectText="Edit" ShowSelectButton="True" />
                 </Columns>
-                <EditRowStyle BackColor="#2461BF" />
-                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                <RowStyle BackColor="#EFF3FB" />
-                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
+            <br />
+            <br />
             <asp:LinkButton ID="LinkButton1" runat="server"></asp:LinkButton>
 
 
@@ -244,9 +230,7 @@
             <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender2" TargetControlID="LinkButton1" PopupControlID="PanelCreate" CancelControlID="BtnExit" BackgroundCssClass="modalBackground" runat="server"></ajaxToolkit:ModalPopupExtender>
 
 
-            <%--This is the sqldatasource with command for selecting all the value from the database into the gridview--%>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:EclerxConnectionString %>" SelectCommand="SELECT * FROM [EmployeeData]"></asp:SqlDataSource>
-
+            
             <br />
 
         </div>

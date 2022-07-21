@@ -14,11 +14,26 @@ namespace EmployeeData
     {
         private SqlConnection obj = null;
         private SqlCommand cmd = null;
+        private SqlDataAdapter adapter = null;
+        private DataSet ds = null;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
+            this.grid();
 
+        }
+
+        public void grid()
+        {
+
+            using (obj = new SqlConnection(ConfigurationManager.ConnectionStrings["EclerxConnectionString"].ConnectionString))
+            {
+                using (adapter = new SqlDataAdapter("select * from EmployeeData", obj))
+                {
+                    ds = new DataSet();
+                    adapter.Fill(ds, "EmpData");
+                    GridEmployee.DataSource = ds.Tables["EmpData"];
+                    GridEmployee.DataBind();
+                }
             }
 
         }
@@ -26,12 +41,12 @@ namespace EmployeeData
         protected void GridEmployee_SelectedIndexChanged(object sender, EventArgs e)
         {
             //this is for showing the selected index value to the textbox in the update panel
-            TxtId.Text = GridEmployee.SelectedRow.Cells[0].Text;
-            TxtPcidssUserName.Text = GridEmployee.SelectedRow.Cells[1].Text;
-            TxtUserName.Text=GridEmployee.SelectedRow.Cells[2].Text;
-            TxtEmail.Text=GridEmployee.SelectedRow.Cells[3].Text;
-            TxtPublicRoles.Text=GridEmployee.SelectedRow.Cells[4].Text;
-            TxtAdminRoles.Text=GridEmployee.SelectedRow.Cells[5].Text;
+            TxtId.Text = GridEmployee.SelectedRow.Cells[1].Text;
+            TxtPcidssUserName.Text = GridEmployee.SelectedRow.Cells[2].Text;
+            TxtUserName.Text=GridEmployee.SelectedRow.Cells[3].Text;
+            TxtEmail.Text=GridEmployee.SelectedRow.Cells[4].Text;
+            TxtPublicRoles.Text=GridEmployee.SelectedRow.Cells[5].Text;
+            TxtAdminRoles.Text=GridEmployee.SelectedRow.Cells[6].Text;
             
             TxtId.Enabled = false;
             ModalPopupExtender1.Show();
@@ -54,18 +69,13 @@ namespace EmployeeData
                     cmd.Parameters.AddWithValue("@ADMINROLES", TxtAdminRoles.Text);
 
 
-                    SqlDataSource1.DataBind();
-                    GridEmployee.DataSource = null;
-                    GridEmployee.DataSourceID = "SqlDataSource1";
-                    GridEmployee.SelectedIndex = -1;
-
                     if (obj.State == ConnectionState.Closed)
                     {
                         obj.Open();
                     }
                     cmd.ExecuteNonQuery();
 
-                    
+                    this.grid();
 
                 }
             }
@@ -103,12 +113,10 @@ namespace EmployeeData
                     }
                     cmd.ExecuteNonQuery();
 
-                    
-                    SqlDataSource1.DataBind();
-                    GridEmployee.DataSource = null;
-                    GridEmployee.DataSourceID = "SqlDataSource1";
-                    GridEmployee.SelectedIndex = -1;
-                    
+
+                    this.grid();
+
+                   
 
                 }
             }
