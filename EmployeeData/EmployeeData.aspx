@@ -6,78 +6,94 @@
 <head runat="server">
     <title></title>
     <style type="text/css">
-        .modalBackground{
+        .modalBackground {
             background-color: Black;
-        filter: alpha(opacity=40);
-        opacity: 0.4;
+            opacity: 0.4;
         }
-   
-     
+
+
         .auto-style1 {
             width: 100%;
         }
+
         .auto-style2 {
             width: 156px;
             background-color: #FFCC00;
         }
+
         .auto-style3 {
             width: 243px;
             background-color: #FFCC00;
         }
+
         .auto-style4 {
             width: 163px;
             background-color: #FFCC00;
         }
+
         .auto-style5 {
             width: 156px;
             height: 40px;
             background-color: #FFCC00;
         }
+
         .auto-style6 {
             width: 243px;
             height: 40px;
             background-color: #FFCC00;
         }
+
         .auto-style7 {
             width: 163px;
             height: 40px;
             background-color: #FFCC00;
         }
+
         .auto-style8 {
             height: 40px;
             background-color: #FFCC00;
         }
+
         .auto-style9 {
             height: 30px;
             background-color: #FFCC00;
         }
+
         .auto-style10 {
             background-color: #FFCC00;
         }
+
         .auto-style11 {
             height: 23px;
         }
+
         .auto-style12 {
             width: 175px;
         }
+
         .auto-style13 {
             height: 23px;
             width: 175px;
         }
+
         .auto-style14 {
             width: 212px;
         }
+
         .auto-style15 {
             height: 23px;
             width: 212px;
         }
+
         .auto-style16 {
             width: 100%;
             background-color: #FFCC00;
         }
+
         .auto-style17 {
             width: 216px;
         }
+
         .auto-style18 {
             height: 23px;
             width: 216px;
@@ -87,11 +103,15 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Label ID="LblData" runat="server" Text="Data"></asp:Label>
-            <asp:Button ID="BtnCreate" runat="server" Text="Create" OnClick="BtnCreate_Click" />
+           <%-- Adding Script Manger to Manage Ajak --%>
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
-            <br />
+
+            <%--Adding data by clicking btn create into the database--%>
+            <asp:Label ID="LblData" runat="server" Text="Data"></asp:Label>
+            <asp:Button ID="BtnCreate" runat="server" Text="Create" OnClick="BtnCreate_Click" />
+
+            <%--Adding data from the data base to the grid view by SQLDataSource--%>
             <asp:GridView ID="GridEmployee" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridEmployee_SelectedIndexChanged" CellPadding="4" ForeColor="#333333" GridLines="None">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
@@ -115,13 +135,11 @@
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
-             <asp:LinkButton ID="LinkButton1" runat="server"></asp:LinkButton>
+            <asp:LinkButton ID="LinkButton1" runat="server"></asp:LinkButton>
 
-            <br />
-            <asp:LinkButton ID="LinkButton2" runat="server"></asp:LinkButton>
 
-            <br />
-            <asp:Panel ID="PanelUpdate" runat="server" Height="152px" Width="906px" Style="display: none"  >
+            <%--This is panel for update the data through the id --%>
+            <asp:Panel ID="PanelUpdate" runat="server" Height="152px" Width="906px" Style="display: none">
                 <table class="auto-style1">
                     <tr>
                         <td class="auto-style2">ID</td>
@@ -155,14 +173,16 @@
                     </tr>
                     <tr>
                         <td colspan="4" class="auto-style9">
-                            <asp:Button ID="BtnUpdate" runat="server" Text="Update" Width="95px" OnClick="BtnUpdate_Click"/>
-                            <asp:Button ID="BtnClose" runat="server" Text="Close" Width="100px"/>
+                            <asp:Button ID="BtnUpdate" runat="server" Text="Update" Width="95px" OnClick="BtnUpdate_Click" />
+                            <asp:Button ID="BtnClose" runat="server" Text="Close" Width="100px" />
                         </td>
                     </tr>
                 </table>
             </asp:Panel>
             <br />
-            <asp:Panel ID="PanelCreate" runat="server" Height="186px" Width="910px" Style="display: none" >
+
+            <%--This panel for to insert data to the data base--%>
+            <asp:Panel ID="PanelCreate" runat="server" Height="186px" Width="910px" Style="display: none">
                 <table class="auto-style16">
                     <tr>
                         <td class="auto-style12">ID</td>
@@ -207,7 +227,7 @@
                     <tr>
                         <td colspan="4">
                             <asp:Button ID="BtnInsert" runat="server" Text="Insert" Width="99px" OnClick="BtnInsert_Click" />
-                            <asp:Button ID="BtnExit" runat="server" Text="Close" Width="95px"/>
+                            <asp:Button ID="BtnExit" runat="server" Text="Close" Width="95px" />
                         </td>
                     </tr>
                 </table>
@@ -216,11 +236,19 @@
             <br />
             <br />
             <br />
+
+           <%-- This is for popup window for the update pannel--%>
             <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" TargetControlID="LinkButton1" PopupControlID="PanelUpdate" CancelControlID="BtnClose" BackgroundCssClass="modalBackground" runat="server"></ajaxToolkit:ModalPopupExtender>
-            <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender2" TargetControlID="LinkButton2" PopupControlID="PanelCreate" CancelControlID="BtnExit" BackgroundCssClass="modalBackground" runat="server"></ajaxToolkit:ModalPopupExtender>
+
+           <%-- This is for popup for the insert button to insert data into the database--%>
+            <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender2" TargetControlID="LinkButton1" PopupControlID="PanelCreate" CancelControlID="BtnExit" BackgroundCssClass="modalBackground" runat="server"></ajaxToolkit:ModalPopupExtender>
+
+
+            <%--This is the sqldatasource with command for selecting all the value from the database into the gridview--%>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:EclerxConnectionString %>" SelectCommand="SELECT * FROM [EmployeeData]"></asp:SqlDataSource>
-           
+
             <br />
+
         </div>
     </form>
 </body>

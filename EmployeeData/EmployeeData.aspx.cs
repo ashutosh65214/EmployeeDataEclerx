@@ -25,7 +25,7 @@ namespace EmployeeData
 
         protected void GridEmployee_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //this is for showing the selected index value to the textbox in the update panel
             TxtId.Text = GridEmployee.SelectedRow.Cells[0].Text;
             TxtPcidssUserName.Text = GridEmployee.SelectedRow.Cells[1].Text;
             TxtUserName.Text=GridEmployee.SelectedRow.Cells[2].Text;
@@ -44,6 +44,7 @@ namespace EmployeeData
             {
                 using (cmd = new SqlCommand("usp_UpdateEmployee", obj))
                 {
+                    //This is for updating data by the id with the sp
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@ID", TxtId.Text);
                     cmd.Parameters.AddWithValue("@PCIDSSUSERNAME", TxtPcidssUserName.Text);
@@ -72,6 +73,7 @@ namespace EmployeeData
 
         protected void BtnCreate_Click(object sender, EventArgs e)
         {
+            //This is for showing the pop up panel for inserting data into the database
             ModalPopupExtender2.Show();
         }
 
@@ -81,6 +83,7 @@ namespace EmployeeData
             {
                 using (cmd = new SqlCommand("usp_CreateUser", obj))
                 {
+                    //This is for inserting data into the database like adding new items by sp
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@ID",TxtInId.Text);
                     cmd.Parameters.AddWithValue("@PCIDSSUSERNAME", TxtInPUserName.Text);
@@ -90,6 +93,8 @@ namespace EmployeeData
                     cmd.Parameters.AddWithValue("@ADMINROLES", TxtInAdminRoles.Text);
                     cmd.Parameters.AddWithValue("@STATUS", DdlStatus.Text);
 
+
+                    //After adding data then to clear all the text from the text box
                     this.reset();
 
                     if (obj.State == ConnectionState.Closed)
@@ -98,6 +103,7 @@ namespace EmployeeData
                     }
                     cmd.ExecuteNonQuery();
 
+                    
                     SqlDataSource1.DataBind();
                     GridEmployee.DataSource = null;
                     GridEmployee.DataSourceID = "SqlDataSource1";
